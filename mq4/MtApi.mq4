@@ -427,51 +427,51 @@ void updateQuote()
 
 int _tick_count = 0;
 
-void OnTick()
-{   
-   bool lastbar_time_changed = false;
-   if (_lastBarOpenTime != Time[0])
-   {
-      double open = Open[1];
-      double close = Close[1];
-      double high = High[1];
-      double low = Low[1];
-      
-      MtTimeBar timeBar(Symbol(), _lastBarOpenTime, Time[0], open, close, high, low);
-      SendMtEvent(LAST_TIME_BAR_EVENT, timeBar);
-      
-      _lastBarOpenTime = Time[0];
-      lastbar_time_changed = true;
-   }
-   
-   updateQuote();
-
-   if (IsTesting())
-   {
-      if (BacktestingLockTicks == LOCK_EVERY_TICK ||
-         (BacktestingLockTicks == LOCK_EVERY_CANDLE  && lastbar_time_changed))
-      {
-         _is_ticks_locked = true;
-         
-         MtLockTickEvent lock_tick_event(Symbol());
-         SendMtEvent(ON_LOCK_TICKS_EVENT, lock_tick_event);
-      }
-      
-      while(true)
-      {
-         if (IsStopped())
-            break;
-      
-         int executedCommand = ExecuteCommand();
-                       
-         if (_is_ticks_locked)
-            continue;
-               
-         if (executedCommand == 0) 
-            break;
-      }
-   }
-}
+//void OnTick()
+//{   
+//   bool lastbar_time_changed = false;
+//   if (_lastBarOpenTime != Time[0])
+//   {
+//      double open = Open[1];
+//      double close = Close[1];
+//      double high = High[1];
+//      double low = Low[1];
+//      
+//      MtTimeBar timeBar(Symbol(), _lastBarOpenTime, Time[0], open, close, high, low);
+//      SendMtEvent(LAST_TIME_BAR_EVENT, timeBar);
+//      
+//      _lastBarOpenTime = Time[0];
+//      lastbar_time_changed = true;
+//   }
+//   
+//   updateQuote();
+//
+//   if (IsTesting())
+//   {
+//      if (BacktestingLockTicks == LOCK_EVERY_TICK ||
+//         (BacktestingLockTicks == LOCK_EVERY_CANDLE  && lastbar_time_changed))
+//      {
+//         _is_ticks_locked = true;
+//         
+//         MtLockTickEvent lock_tick_event(Symbol());
+//         SendMtEvent(ON_LOCK_TICKS_EVENT, lock_tick_event);
+//      }
+//      
+//      while(true)
+//      {
+//         if (IsStopped())
+//            break;
+//      
+//         int executedCommand = ExecuteCommand();
+//                       
+//         if (_is_ticks_locked)
+//            continue;
+//               
+//         if (executedCommand == 0) 
+//            break;
+//      }
+//   }
+//}
 
 void OnTimer()
 {
