@@ -70,7 +70,7 @@
 
         public static MtMessage? Parse(string payload)
         {
-            var pieces = payload.Split(";", 3);
+            var pieces = payload.Split([';'], count: 3);
             if (pieces.Length == 3
                 && int.TryParse(pieces[0], out int expertHandle)
                 && int.TryParse(pieces[1], out int eventType))
@@ -132,7 +132,7 @@
 
         public static MtMessage? Parse(string payload)
         {
-            var pieces = payload.Split(",");
+            var pieces = payload.Split(',');
             HashSet<int> handles = [];
             foreach (var p in pieces)
             {
@@ -160,7 +160,7 @@
 
         public static MtMessage? Parse(string payload)
         {
-            var pieces = payload.Split(";", 3);
+            var pieces = payload.Split([';'], 3);
             if (pieces.Length != 3
                 || string.IsNullOrEmpty(pieces[0])
                 || string.IsNullOrEmpty(pieces[1])

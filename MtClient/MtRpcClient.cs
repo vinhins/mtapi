@@ -125,7 +125,8 @@ namespace MtClient
                     string msgStr = message.Serialize();
                     logger_.Debug($"MtRpcClient.DoWrite: sending message: {msgStr}");
                     byte[] bytes = Encoding.ASCII.GetBytes(msgStr);
-                    await ws_.SendAsync(bytes, WebSocketMessageType.Text, true, CancellationToken.None);
+                    var buffer = new ArraySegment<byte>(bytes);
+                    await ws_.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
                 }
                 catch (Exception e)
                 {
@@ -208,7 +209,7 @@ namespace MtClient
                 return;
             }
 
-            var pieces = msg.Split(";", 2);
+            var pieces = msg.Split([';'], 2);
 
             if (pieces.Length != 2
                 || string.IsNullOrEmpty(pieces[0])
